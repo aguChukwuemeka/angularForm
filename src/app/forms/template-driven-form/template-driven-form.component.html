@@ -1,0 +1,162 @@
+<p>template-driven-form works!</p>
+
+<div class="card">
+  <div class="card-header">Sign Up!</div>
+  <div class="m-3">
+    <form (ngSubmit)="save(signupForm)" #signupForm="ngForm">
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="lastNameId"
+          >First Name</label
+        >
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="firstNameId"
+            class="form-control"
+            placeholder="First Name (required)"
+            required
+            [(ngModel)]="customer.firstName"
+            maxlength="30"
+            name="firstName"
+            #firstNameVar="ngModel"
+            [ngClass]="{
+              'is-invalid': firstNameVar.touched && !firstNameVar.valid
+            }"
+          />
+          <span
+            class="invalid-feedback"
+            *ngIf="firstNameVar.errors?.['required']"
+            >Please enter your first name.</span
+          >
+          <span
+            class="invalid-feedback"
+            *ngIf="firstNameVar.errors?.['minlength']"
+            >The first name must be longer than three charaters.</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="lastNameId"
+          >Last Name</label
+        >
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="lastNameId"
+            class="form-control"
+            placeholder="Last Name (required)"
+            required
+            [(ngModel)]="customer.lastName"
+            maxlength="30"
+            name="lastName"
+            #lastNameVar="ngModel"
+            [ngClass]="{
+              'is-invalid': lastNameVar.touched && !lastNameVar.valid
+            }"
+          />
+          <span
+            class="invalid-feedback"
+            *ngIf="lastNameVar.errors?.['required']"
+            >Please enter your last name.</span
+          >
+          <span
+            class="invalid-feedback"
+            *ngIf="lastNameVar.errors?.['minlength']"
+            >The last name must be longer than three charaters.</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="emailId">Email</label>
+        <div class="col-md-8">
+          <input
+            type="text"
+            id="emailId"
+            class="form-control"
+            placeholder="Email (required)"
+            required
+            [(ngModel)]="customer.email"
+            name="email"
+            #emailVar="ngModel"
+            [ngClass]="{
+              'is-invalid': emailVar.touched && !emailVar.valid
+            }"
+          />
+          <span class="invalid-feedback" *ngIf="emailVar.errors?.['required']"
+            >Please enter your email address.</span
+          >
+          <span class="invalid-feedback" *ngIf="emailVar.errors?.['email']"
+            >Please enter a valid email address.</span
+          >
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center my-4">
+        <input name="checkbox" type="checkbox" />
+      </div>
+
+      <div *ngIf="" class="">
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="lastNameId"
+            >Catalog</label
+          >
+          <div class="col-md-8">
+            <input
+              type="text"
+              id="firstNameId"
+              class="form-control"
+              placeholder="Catalog (required)"
+              required
+              [(ngModel)]="customer.firstName"
+              maxlength="30"
+              name="firstName"
+              #firstNameVar="ngModel"
+              [ngClass]="{
+                'is-invalid': firstNameVar.touched && !firstNameVar.valid
+              }"
+            />
+            <span
+              class="invalid-feedback"
+              *ngIf="firstNameVar.errors?.['required']"
+              >Please enter your Catalog.</span
+            >
+            <span
+              class="invalid-feedback"
+              *ngIf="firstNameVar.errors?.['minlength']"
+              >The Catalog must be longer than three charaters.</span
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-mb-2 col-md-4">
+          <button
+            class="btn btn-primary mr-3"
+            type="submit"
+            style="width: 80px"
+            [title]="
+              signupForm.valid
+                ? 'Save your entered data'
+                : 'Disable untill the form data is valid'
+            "
+            [disabled]="!signupForm.valid"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<br />
+Dirty: {{ signupForm.dirty }} <br />
+Touched: {{ signupForm.touched }} <br />
+Valid: {{ signupForm.valid }} <br />
+Value: {{ signupForm.value | json }}
