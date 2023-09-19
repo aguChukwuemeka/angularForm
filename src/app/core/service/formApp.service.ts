@@ -10,6 +10,16 @@ export class FormAppService {
   apiBaseUrl: string;
   headers: HttpHeaders;
 
+  // Testing................................................................
+  requests$ = this.httpClient
+      .get<any>('http:4001//www.try.com/accountOpening/getRequest')
+      .pipe(
+        tap((data) => console.log('fetched hero' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+
+
+
   constructor(private httpClient: HttpClient, settings: AppConfigService) {
     this.apiBaseUrl = settings.AdditionalAccountUrl;
     this.headers = new HttpHeaders({
@@ -26,35 +36,7 @@ export class FormAppService {
     );
   }
 
-  //testing...
-  getRequest(payload: any): Observable<any> {
-    if (true === payload) {
-      return of(this.initialRequest());
-    }
-    return this.httpClient
-      .post<any>(
-        `${this.apiBaseUrl}/CustomerRequest/accountOpening/submitRequest`,
-        payload,
-        { headers: this.headers }
-      )
-      .pipe(
-        tap((data) => console.log('fetched hero' + JSON.stringify(data))),
-        catchError(this.handleError)
-      );
-  }
-
-  initialRequest() {
-    return {
-      id: 0,
-      result: null,
-      product: '',
-      loading: false,
-      examine: null,
-      cash: null,
-    };
-  }
-
   private handleError(err: any, caught: Observable<any>): Observable<any> {
-    throw new Error('Function not implemented.');
+    throw new Error('error occur in the api...');
   }
 }

@@ -1,3 +1,4 @@
+import { FormAppService } from './../../../core/service/formApp.service';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -6,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { EMPTY, catchError, debounceTime, of } from 'rxjs';
 import { __values } from 'tslib';
 
 function ratingRange(C: AbstractControl): { [key: string]: boolean } | null {
@@ -51,7 +52,10 @@ export class FormBuilderComponent implements OnInit {
     return <FormArray>this.customerForm.get('addresses');
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private formAppService: FormAppService
+  ) {}
 
   addAddress(): void {
     return this.addresses.push(this.buildAddress());
@@ -67,6 +71,15 @@ export class FormBuilderComponent implements OnInit {
       zip: '',
     });
   }
+
+  // Testing Observable with out calling function...
+  requests$ = this.formAppService.requests$.pipe(
+    catchError((err) => {
+      console.log(err);
+      return of([]); // OR
+      // return EMPTY;
+    })
+  ); // then on the Template use async pipe:(they're more Declarative Approach & reactive syntax )
 
   ngOnInit() {
     this.customerForm = this.fb.group({
